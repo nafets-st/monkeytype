@@ -387,9 +387,10 @@ async function showCommands(): Promise<void> {
       }
     } else if (configKey !== undefined) {
       let isActive;
+      let valueIndex;
 
       if (command.configValueMode === "include") {
-        isActive = (
+        valueIndex = (
           Config[configKey] as (
             | string
             | number
@@ -397,14 +398,22 @@ async function showCommands(): Promise<void> {
             | number[]
             | undefined
           )[]
-        ).includes(command.configValue);
+        ).indexOf(command.configValue);
+        isActive = valueIndex !== -1;
       } else {
         isActive = Config[configKey] === command.configValue;
       }
 
       if (isActive) {
         firstActive = firstActive ?? index;
-        configIcon = `<i class="fas fa-fw fa-check"></i>`;
+        if (valueIndex && command.displayActive === "index") {
+          configIcon = `<span class="fa-stack circle-text">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <span class="fa-stack-1x fa-inverse">${valueIndex}</span>
+</span>`;
+        } else {
+          configIcon = `<i class="fas fa-fw fa-check"></i>`;
+        }
       } else {
         configIcon = `<i class="fas fa-fw"></i>`;
       }

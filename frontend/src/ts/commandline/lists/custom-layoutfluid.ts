@@ -13,6 +13,7 @@ const subgroup: CommandsSubgroup = {
     configValue: layout,
     configValueMode: "include",
     sticky: true,
+    displayActive: "index",
     exec: (): void => {
       UpdateConfig.toggleCustomLayoutfluid(layout);
       TestLogic.restart();

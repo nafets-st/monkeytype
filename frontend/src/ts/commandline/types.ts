@@ -32,6 +32,7 @@ export type Command = {
   active?: () => boolean;
   shouldFocusTestUI?: boolean;
   customData?: Record<string, string | boolean>;
+  displayActive?: "index";
 };
 
 export type CommandsSubgroup = {
