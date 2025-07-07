@@ -728,4 +728,12 @@ export function sanitize<T extends z.ZodTypeAny>(
   ) as z.infer<T>;
 }
 
+const toString = Function.prototype.toString;
+export function isNative(fn: unknown): boolean {
+  return (
+    typeof fn === "function" &&
+    /\{\s*\[native code\]\s*\}/.test(toString.call(fn))
+  );
+}
+
 // DO NOT ALTER GLOBAL OBJECTSONSTRUCTOR, IT WILL BREAK RESULT HASHES

@@ -1045,6 +1045,10 @@ export async function finish(difficultyFailed = false): Promise<void> {
     Notifications.add("Test invalid - accuracy", 0);
     TestStats.setInvalid();
     dontSave = true;
+  } else if (!Misc.isNative(window.fetch) || !Misc.isNative(Math.random)) {
+    Notifications.add("Test invalid - fetch/random", 0);
+    TestStats.setInvalid();
+    dontSave = true;
   }
 
   // test is valid
